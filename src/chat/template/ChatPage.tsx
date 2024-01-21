@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavBar, TabBar, Button, Textarea } from '@arco-design/mobile-react';
 import ScrollScreen from '../components/ScrollScreen'
 import { getBasicInfo, buildData } from '../util';
 
 import lessModule from './ChatPage.module.less';
 
-const ChatPage: React.FC = () => {
+const ChatPage: React.FC = (props: any) => {
 
+  const { chatManBaseInfo = {} } = props
   const [value, setValue] = useState<string>('')
   const [dataSource, setDataSource] = useState<DataSourceType[]>([])
 
+
+
   const sendMessage = () => {
+    const socket = new WebSocket('ws://' + window.location.hostname + ':8000/ws/chat/test/')
     const data: DataSourceType = {
       type: 'send',
       message: value
@@ -18,6 +22,16 @@ const ChatPage: React.FC = () => {
     const info = getBasicInfo('currentUser')
     const newData = buildData(data, info)
     setDataSource(dataSource.concat(newData as DataSourceType))
+    if (socket.readyState === 1) {
+      socket.send(JSON.stringify({
+        'message': value
+      }))
+    }
+    socket.onmessage = (e) => {
+      const data = JSON.parse(e.data);
+      const newData = buildData(data, chatManBaseInfo)
+      setDataSource(dataSource.concat(newData as DataSourceType))
+    }
     setValue('')
   }
 

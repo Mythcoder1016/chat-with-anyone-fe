@@ -1,4 +1,4 @@
-import React, { useEffect, createRef } from 'react';
+import React, { createRef } from 'react';
 import Avatar from '../Avatar';
 
 import lessModule from './index.module.less'
@@ -9,18 +9,15 @@ const Message: React.FC<MessageType> = ({ data }) => {
 
 	const { type, message, avatarUrl, username } = data
 
-	useEffect(() => {
-		console.log(messageRef.current?.getBoundingClientRect());
-		
-	}, [])
-
 	const component = <div
-		className={ type === 'send' ? lessModule.messageWarpperRight : lessModule.messageLeft }
+		className={ type === 'send' ? lessModule.messageWrapperRight : lessModule.messageWrapperLeft }
 		>
-		<Avatar />
+		<Avatar src={avatarUrl}/>
 		<div className={lessModule.innerWrapper}>
 			<span className={lessModule.username}>{username}</span>
-			<div className={lessModule.message} ref={messageRef}>{message}</div>
+			<div className={lessModule.messageWrapper}>
+				<div className={lessModule.message} ref={messageRef}>{message}</div>
+			</div>
 		</div>
 	</div>
 	return component

@@ -6,7 +6,7 @@ const ScrollScreen: React.FC<ScrollScreenType> = (props) => {
 	const message = dataSource.map((data, index) => {
 		return <Message data={data} key={index}/>
 	})
-	
+
   return <div>
 		{message}
   </div>

@@ -1,15 +1,18 @@
-.messageWarpperRight {
+.messageWrapperRight {
     display: flex;
     vertical-align: middle;
     flex-direction: row-reverse;
-    padding: 0 0.16rem;
+    padding: 0.16rem 0.16rem 0 0.8rem;
     gap: 0.16rem;
     .innerWrapper {
         align-items: flex-end;
+        .messageWrapper {
+            background-color: #98fb98;
+        }
     }
 }
 
-.messageWarpperLeft {
+.messageWrapperLeft {
     display: flex;
     vertical-align: middle;
     flex-direction: row;
@@ -17,6 +20,9 @@
     gap: 0.16rem;
     .innerWrapper {
         align-items: flex-start;
+        .messageWrapper {
+            background-color: #e4e9f2;
+        }
     }
 }
 
@@ -24,12 +30,19 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    gap: 0.02rem;
     .username {
-        font-size: 0.32rem;
-        color: #111;
+        font-size: 0.25rem;
+        color: #808080;
     }
-    .message {
-        font-size: 0.64rem;
-        word-break: break-all;
+    .messageWrapper {
+        border-radius: 0.1rem;
+        .message {
+            text-align: justify;
+            padding: 0.16rem;
+            font-size: 0.4rem;
+            word-break: break-all;
+        }
+
     }
 }
